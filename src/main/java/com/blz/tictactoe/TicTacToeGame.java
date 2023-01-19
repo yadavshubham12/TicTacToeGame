@@ -32,13 +32,21 @@ public class TicTacToeGame {
         playerLetter = letter;
         computerLetter = (letter == 'X') ? 'O' : 'X';
     }
-    public  void move (int position, char player) {
-        if (board[position] == ' '){
-            board[position] = player;
+    public boolean move (int position, char player) {
+       if (position >= 1 && position <= 9){
+           if (board[position] == ' '){
+               board[position] = player;
+               return true;
+       }
+           else {
+               System.out.println("This cell is already engaged, please choose another cell.");
+           }
+           return false;
         }
-        else {
-            System.out.println("This cell is already engaged, please choose another cell.");
-        }
+       else {
+           System.out.println("Invalid move, please choose valid cell 1 - 9. ");
+       }
+       return false;
 
     }
     public boolean draw() {
@@ -83,10 +91,13 @@ public class TicTacToeGame {
         game.move(5, '0');
         game.move(9, 'X');
         game.showBoard();
-        System.out.println("Make your Move (1 - 9):");
-        Scanner scanner = new Scanner(System.in);
-        int move = scanner.nextInt();
-        game.move(move, game.playerLetter);
+        while (true) {
+            System.out.println("Make your Move (1 - 9):");
+            Scanner scanner = new Scanner(System.in);
+            int move = scanner.nextInt();
+            if (game.move(move, game.playerLetter)) ;
+            break;
+        }
         game.showBoard();
         if (game.win(game.playerLetter)){
             System.out.println("You win");
