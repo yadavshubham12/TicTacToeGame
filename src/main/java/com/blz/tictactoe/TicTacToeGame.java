@@ -68,6 +68,20 @@ public class TicTacToeGame {
        return false;
 
     }
+    public boolean computerMove(){
+        for (int i = 1; i <= 9; i++){
+            if (board[i] == ' '){
+                board[i] = computerLetter;
+                if (win(computerLetter)){
+                    return true;
+                }
+                else {
+                    board[i] = ' ';
+                }
+            }
+        }
+        return false;
+    }
     public boolean draw() {
         for (int i = 1; i < board.length; i++){
             if (board[i] == ' '){
@@ -105,6 +119,12 @@ public class TicTacToeGame {
     private boolean isPlayerTurn;
 
     public void play(){
+        if (!isPlayerTurn && !computerMove()){
+            int move = (int) (Math.random() * 9) + 1;
+            while (!move(move,computerLetter)){
+                move = (int) (Math.random() * 9) + 1;
+            }
+        }
         Scanner scanner = new Scanner(System.in);
         doToss();
         if (startingPlayer == 'U')
