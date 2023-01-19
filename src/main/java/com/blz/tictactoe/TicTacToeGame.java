@@ -10,6 +10,17 @@ public class TicTacToeGame {
     private char startingPlayer;
     private char[] board = new char[10];
 
+   public boolean cornerMove(){
+       int[] corners = {1, 3, 7, 9};
+       for (int i = 0; i <corners.length; i++) {
+           if (board[corners[i]] == ' '){
+               board[corners[i]] = computerLetter;
+               return true;
+           }
+       }
+       return false;
+   }
+
     public boolean blockMove(){
         for (int i = 1; i <= 9; i++) {
             if (board[i] == ' ') {
@@ -133,48 +144,47 @@ public class TicTacToeGame {
     }
     private boolean isPlayerTurn;
 
-    public void play(){
-        if (!isPlayerTurn && !computerMove()){
-            int move = (int) (Math.random() * 9) + 1;
-            while (!move(move,computerLetter)){
-                move = (int) (Math.random() * 9) + 1;
-            }
-        }
-        if (!isPlayerTurn){
-        }
+    public void play() {
         Scanner scanner = new Scanner(System.in);
         doToss();
-        if (startingPlayer == 'U')
-            isPlayerTurn = true;
-        else
-            isPlayerTurn = false;
-
-        while (true){
-            showBoard();
-            if (isPlayerTurn){
-                System.out.println("Make the move 1 - 9");
-                int moves = scanner.nextInt();
-                if (move(moves, playerLetter)){
-                    isPlayerTurn = false;
+        if (!isPlayerTurn) {
+            if (!computerMove() && !blockMove() && !cornerMove()) {
+                int move = (int) (Math.random() * 9) + 1;
+                while (!move(move, computerLetter)) {
+                    move = (int) (Math.random() * 9) + 1;
                 }
             }
-            else {
-                System.out.println("Computers win!");
-                int moves = (int)(Math.random()*9) + 1;
-                while (!move(moves, computerLetter)){
-                 moves = (int) (Math.random() * 9) + 1;
-                }
+            if (startingPlayer == 'U')
                 isPlayerTurn = true;
-            }
-            if (win(playerLetter)){
-                System.out.println("Player Wins");
-                break;
-            }else if (win(computerLetter)){
-                System.out.println("Computer Wins");
-                break;
-            }else if (draw()){
-                System.out.println("It is Draw");
-                break;
+            else
+                isPlayerTurn = false;
+
+            while (true) {
+                showBoard();
+                if (isPlayerTurn) {
+                    System.out.println("Make the move 1 - 9");
+                    int moves = scanner.nextInt();
+                    if (move(moves, playerLetter)) {
+                        isPlayerTurn = false;
+                    }
+                } else {
+                    System.out.println("Computers win!");
+                    int moves = (int) (Math.random() * 9) + 1;
+                    while (!move(moves, computerLetter)) {
+                        moves = (int) (Math.random() * 9) + 1;
+                    }
+                    isPlayerTurn = true;
+                }
+                if (win(playerLetter)) {
+                    System.out.println("Player Wins");
+                    break;
+                } else if (win(computerLetter)) {
+                    System.out.println("Computer Wins");
+                    break;
+                } else if (draw()) {
+                    System.out.println("It is Draw");
+                    break;
+                }
             }
         }
     }
