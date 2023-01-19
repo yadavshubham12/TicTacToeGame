@@ -10,6 +10,24 @@ public class TicTacToeGame {
     private char startingPlayer;
     private char[] board = new char[10];
 
+    public boolean takeCenter() {
+        if (board[5] == ' ') {
+            board[5] = computerLetter;
+            return true;
+        }
+        return false;
+    }
+    public boolean takeSide() {
+        int[] sides = {2,4,6,8};
+        for (int i = 0; i < sides.length; i++) {
+            if (board[sides[i]] == ' ') {
+                board[sides[i]] = computerLetter;
+                return true;
+            }
+        }
+        return false;
+    }
+
    public boolean cornerMove(){
        int[] corners = {1, 3, 7, 9};
        for (int i = 0; i <corners.length; i++) {
@@ -148,7 +166,7 @@ public class TicTacToeGame {
         Scanner scanner = new Scanner(System.in);
         doToss();
         if (!isPlayerTurn) {
-            if (!computerMove() && !blockMove() && !cornerMove()) {
+            if (!computerMove() && !blockMove() && !cornerMove() && !takeCenter() && !takeSide()) {
                 int move = (int) (Math.random() * 9) + 1;
                 while (!move(move, computerLetter)) {
                     move = (int) (Math.random() * 9) + 1;
