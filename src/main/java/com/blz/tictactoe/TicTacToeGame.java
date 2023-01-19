@@ -33,14 +33,11 @@ public class TicTacToeGame {
         computerLetter = (letter == 'X') ? 'O' : 'X';
     }
     public  void move (int position, char player) {
-        if (player == playerLetter){
-            board[position] = playerLetter;
-        }
-        else if (player == computerLetter){
-            board[position] = computerLetter;
+        if (board[position] == ' '){
+            board[position] = player;
         }
         else {
-            System.out.println("Invalid move");
+            System.out.println("This cell is already engaged, please choose another cell.");
         }
 
     }
