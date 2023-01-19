@@ -10,6 +10,21 @@ public class TicTacToeGame {
     private char startingPlayer;
     private char[] board = new char[10];
 
+    public boolean blockMove(){
+        for (int i = 1; i <= 9; i++) {
+            if (board[i] == ' ') {
+                board[i] = playerLetter;
+                if (win(playerLetter)) {
+                    board[i] = computerLetter;
+                    return true;
+                } else {
+                    board[i] = ' ';
+                }
+            }
+        }
+        return false;
+    }
+
     public void doToss(){
         Random rand = new Random();
         int toss = rand.nextInt(2);
@@ -125,6 +140,8 @@ public class TicTacToeGame {
                 move = (int) (Math.random() * 9) + 1;
             }
         }
+        if (!isPlayerTurn){
+        }
         Scanner scanner = new Scanner(System.in);
         doToss();
         if (startingPlayer == 'U')
@@ -187,5 +204,5 @@ public class TicTacToeGame {
             System.out.println("Draw The Game");
         }
     }
-    
+
 }
