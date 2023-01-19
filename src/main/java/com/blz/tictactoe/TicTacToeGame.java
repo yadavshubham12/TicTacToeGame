@@ -13,6 +13,14 @@ public class TicTacToeGame {
             board[i] = ' ';
         }
     }
+    public void showBoard(){
+        for (int i = 1; i <= 9; i+= 3){
+            System.out.println(i + " | " +(i+1)+ " | " + (i+2));
+            if (i < 7){
+                System.out.println("_________");
+            }
+        }
+    }
     public void chooseLetter() {
         Scanner scanner = new Scanner(System.in);
         System.out.println(" Enter your letter X or O ");
@@ -66,18 +74,23 @@ public class TicTacToeGame {
         for (int i = 1; i <= 9; i+= 3){
             System.out.println(board[i] + " | " + board[i + 1] + " | " + board[i + 2]);
             if (i < 7){
-                System.out.println("    ");
+                System.out.println("_________");
             }
         }
     }
 
     public static void main(String[] args) {
         TicTacToeGame  game = new TicTacToeGame();
-        game.chooseLetter();
+
         game.move(1, 'X');
         game.move(5, '0');
         game.move(9, 'X');
-        game.printBoard();
+        game.showBoard();
+        System.out.println("Make your Move (1 - 9):");
+        Scanner scanner = new Scanner(System.in);
+        int move = scanner.nextInt();
+        game.move(move, game.playerLetter);
+        game.showBoard();
         if (game.win(game.playerLetter)){
             System.out.println("You win");
         } else if (game.win(game.computerLetter)) {
