@@ -1,12 +1,31 @@
 package com.blz.tictactoe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeGame {
 
     private char playerLetter;
     private char computerLetter;
+    private char startingPlayer;
     private char[] board = new char[10];
+
+    public void doToss(){
+        Random rand = new Random();
+        int toss = rand.nextInt(2);
+        if (toss == 0){
+            startingPlayer = 'C';
+            System.out.println("Computer Plays First");
+        }
+        else {
+            startingPlayer = 'U';
+            System.out.println("User Play First");
+        }
+    }
+
+    public char getStartingPlayer() {
+        return startingPlayer;
+    }
 
     public TicTacToeGame() {
         for (int i = 1; i < board.length; i++) {
@@ -86,7 +105,7 @@ public class TicTacToeGame {
 
     public static void main(String[] args) {
         TicTacToeGame  game = new TicTacToeGame();
-
+        game.doToss();
         game.move(1, 'X');
         game.move(5, '0');
         game.move(9, 'X');
