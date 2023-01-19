@@ -102,9 +102,49 @@ public class TicTacToeGame {
             }
         }
     }
+    private boolean isPlayerTurn;
+
+    public void play(){
+        Scanner scanner = new Scanner(System.in);
+        doToss();
+        if (startingPlayer == 'U')
+            isPlayerTurn = true;
+        else
+            isPlayerTurn = false;
+
+        while (true){
+            showBoard();
+            if (isPlayerTurn){
+                System.out.println("Make the move 1 - 9");
+                int moves = scanner.nextInt();
+                if (move(moves, playerLetter)){
+                    isPlayerTurn = false;
+                }
+            }
+            else {
+                System.out.println("Computers win!");
+                int moves = (int)(Math.random()*9) + 1;
+                while (!move(moves, computerLetter)){
+                 moves = (int) (Math.random() * 9) + 1;
+                }
+                isPlayerTurn = true;
+            }
+            if (win(playerLetter)){
+                System.out.println("Player Wins");
+                break;
+            }else if (win(computerLetter)){
+                System.out.println("Computer Wins");
+                break;
+            }else if (draw()){
+                System.out.println("It is Draw");
+                break;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         TicTacToeGame  game = new TicTacToeGame();
+        game.play();
         game.doToss();
         game.move(1, 'X');
         game.move(5, '0');
