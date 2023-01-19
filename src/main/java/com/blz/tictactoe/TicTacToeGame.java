@@ -17,6 +17,7 @@ public class TicTacToeGame {
         }
         return false;
     }
+
     public boolean takeCenter() {
         if (board[5] == ' ') {
             board[5] = computerLetter;
@@ -24,8 +25,9 @@ public class TicTacToeGame {
         }
         return false;
     }
+
     public boolean takeSide() {
-        int[] sides = {2,4,6,8};
+        int[] sides = {2, 4, 6, 8};
         for (int i = 0; i < sides.length; i++) {
             if (board[sides[i]] == ' ') {
                 board[sides[i]] = computerLetter;
@@ -35,18 +37,18 @@ public class TicTacToeGame {
         return false;
     }
 
-   public boolean cornerMove(){
-       int[] corners = {1, 3, 7, 9};
-       for (int i = 0; i <corners.length; i++) {
-           if (board[corners[i]] == ' '){
-               board[corners[i]] = computerLetter;
-               return true;
-           }
-       }
-       return false;
-   }
+    public boolean cornerMove() {
+        int[] corners = {1, 3, 7, 9};
+        for (int i = 0; i < corners.length; i++) {
+            if (board[corners[i]] == ' ') {
+                board[corners[i]] = computerLetter;
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public boolean blockMove(){
+    public boolean blockMove() {
         for (int i = 1; i <= 9; i++) {
             if (board[i] == ' ') {
                 board[i] = playerLetter;
@@ -61,14 +63,13 @@ public class TicTacToeGame {
         return false;
     }
 
-    public void doToss(){
+    public void doToss() {
         Random rand = new Random();
         int toss = rand.nextInt(2);
-        if (toss == 0){
+        if (toss == 0) {
             startingPlayer = 'C';
             System.out.println("Computer Plays First");
-        }
-        else {
+        } else {
             startingPlayer = 'U';
             System.out.println("User Play First");
         }
@@ -83,90 +84,95 @@ public class TicTacToeGame {
             board[i] = ' ';
         }
     }
-    public void showBoard(){
-        for (int i = 1; i <= 9; i+= 3){
-            System.out.println(i + " | " +(i+1)+ " | " + (i+2));
-            if (i < 7){
+
+    public void showBoard() {
+        for (int i = 1; i <= 9; i += 3) {
+            System.out.println(i + " | " + (i + 1) + " | " + (i + 2));
+            if (i < 7) {
                 System.out.println("_________");
             }
         }
     }
+
     public void chooseLetter() {
         Scanner scanner = new Scanner(System.in);
         System.out.println(" Enter your letter X or O ");
         char letter = scanner.next().charAt(0);
-        while (letter != 'X' && letter != 'O'){
+        while (letter != 'X' && letter != 'O') {
             System.out.println("Invalid input");
             letter = scanner.next().charAt(0);
         }
         playerLetter = letter;
         computerLetter = (letter == 'X') ? 'O' : 'X';
     }
-    public boolean move (int position, char player) {
-       if (position >= 1 && position <= 9){
-           if (board[position] == ' '){
-               board[position] = player;
-               return true;
-       }
-           else {
-               System.out.println("This cell is already engaged, please choose another cell.");
-           }
-           return false;
+
+    public boolean move(int position, char player) {
+        if (position >= 1 && position <= 9) {
+            if (board[position] == ' ') {
+                board[position] = player;
+                return true;
+            } else {
+                System.out.println("This cell is already engaged, please choose another cell.");
+            }
+            return false;
+        } else {
+            System.out.println("Invalid move, please choose valid cell 1 - 9. ");
         }
-       else {
-           System.out.println("Invalid move, please choose valid cell 1 - 9. ");
-       }
-       return false;
+        return false;
 
     }
-    public boolean computerMove(){
-        for (int i = 1; i <= 9; i++){
-            if (board[i] == ' '){
+
+    public boolean computerMove() {
+        for (int i = 1; i <= 9; i++) {
+            if (board[i] == ' ') {
                 board[i] = computerLetter;
-                if (win(computerLetter)){
+                if (win(computerLetter)) {
                     return true;
-                }
-                else {
+                } else {
                     board[i] = ' ';
                 }
             }
         }
         return false;
     }
+
     public boolean draw() {
-        for (int i = 1; i < board.length; i++){
-            if (board[i] == ' '){
+        for (int i = 1; i < board.length; i++) {
+            if (board[i] == ' ') {
                 return false;
             }
         }
         return true;
     }
-    public boolean win( char player){
-        for (int i = 1; i <= 3; i++){
-            if (board[i] == player && board[i + 3] == player && board[i + 6] == player){
+
+    public boolean win(char player) {
+        for (int i = 1; i <= 3; i++) {
+            if (board[i] == player && board[i + 3] == player && board[i + 6] == player) {
                 return true;
             }
         }
         for (int i = 1; i <= 3; i++) {
-            if (board[i] == player && board[i + 1] == player && board[i + 2] == player){
+            if (board[i] == player && board[i + 1] == player && board[i + 2] == player) {
                 return true;
             }
         }
-        if (board[1] == player && board[5] == player && board[9] == player){
+        if (board[1] == player && board[5] == player && board[9] == player) {
             return true;
         }
-        if (board[1] == player && board[5] == player && board[9] == player){
+        if (board[1] == player && board[5] == player && board[9] == player) {
         }
         return false;
     }
-    public void printBoard(){
-        for (int i = 1; i <= 9; i+= 3){
+
+    public void printBoard() {
+        for (int i = 1; i <= 9; i += 3) {
             System.out.println(board[i] + " | " + board[i + 1] + " | " + board[i + 2]);
-            if (i < 7){
+            if (i < 7) {
                 System.out.println("_________");
             }
         }
     }
+
     private boolean isPlayerTurn;
 
     public void play() {
@@ -175,52 +181,72 @@ public class TicTacToeGame {
             isPlayerTurn = true;
         else
             isPlayerTurn = false;
-        while (!isGameOver()) {
+        while (true) {
+            while (!isGameOver()) {
+
+            }
+            System.out.println("Do you want to play again  (yes/no)");
             Scanner scanner = new Scanner(System.in);
-            doToss();
-            if (!isPlayerTurn) {
-                if (!computerMove() && !blockMove() && !cornerMove() && !takeCenter() && !takeSide()) {
-                    int move = (int) (Math.random() * 9) + 1;
-                    while (!move(move, computerLetter)) {
-                        move = (int) (Math.random() * 9) + 1;
-                    }
-                }
+            String playAgain = scanner.next();
+            if (playAgain.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                resetBoard();
+                doToss();
                 if (startingPlayer == 'U')
                     isPlayerTurn = true;
                 else
                     isPlayerTurn = false;
-
-                while (true) {
-                    showBoard();
-                    if (isPlayerTurn) {
-                        System.out.println("Make the move 1 - 9");
-                        int moves = scanner.nextInt();
-                        if (move(moves, playerLetter)) {
-                            isPlayerTurn = false;
-                        }
-                    } else {
-                        System.out.println("Computers win!");
-                        int moves = (int) (Math.random() * 9) + 1;
-                        while (!move(moves, computerLetter)) {
-                            moves = (int) (Math.random() * 9) + 1;
-                        }
-                        isPlayerTurn = true;
-                    }
-                    if (win(playerLetter)) {
-                        System.out.println("Player Wins");
-                        break;
-                    } else if (win(computerLetter)) {
-                        System.out.println("Computer Wins");
-                        break;
-                    } else if (draw()) {
-                        System.out.println("It is Draw");
-                        break;
-                    }
-                }
             }
         }
     }
 
+    public void resetBoard() {
+        for (int i = 1; i < board.length; i++) {
+            board[i] = ' ';
+        }
+        if (!isPlayerTurn) {
+            if (!computerMove() && !blockMove() && !cornerMove() && !takeCenter() && !takeSide()) {
+                int move = (int) (Math.random() * 9) + 1;
+                while (!move(move, computerLetter)) {
+                    move = (int) (Math.random() * 9) + 1;
+                }
+            }
+            if (startingPlayer == 'U')
+                isPlayerTurn = true;
+            else
+                isPlayerTurn = false;
+
+            while (true) {
+                showBoard();
+                if (isPlayerTurn) {
+                    System.out.println("Make the move 1 - 9");
+                    Scanner scanner = new Scanner(System.in);
+                    int moves = scanner.nextInt();
+                    if (move(moves, playerLetter)) {
+                        isPlayerTurn = false;
+                    }
+                } else {
+                    System.out.println("Computers win!");
+                    int moves = (int) (Math.random() * 9) + 1;
+                    while (!move(moves, computerLetter)) {
+                        moves = (int) (Math.random() * 9) + 1;
+                    }
+                    isPlayerTurn = true;
+                }
+                if (win(playerLetter)) {
+                    System.out.println("Player Wins");
+                    break;
+                } else if (win(computerLetter)) {
+                    System.out.println("Computer Wins");
+                    break;
+                } else if (draw()) {
+                    System.out.println("It is Draw");
+                    break;
+                }
+            }
+        }
+    }
     public static void main(String[] args) {
         TicTacToeGame  game = new TicTacToeGame();
         game.play();
